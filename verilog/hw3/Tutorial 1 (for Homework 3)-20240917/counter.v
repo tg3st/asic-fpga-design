@@ -8,10 +8,10 @@
 * NOTES:
 *
 * REVISION HISTORY
-*    Date     Programmer    Description
-*    7/10/97  P. Franzon    ece520-specific version
+*    Date     Programmer          Description
+*    9/17/24  Thiago Gesteira    ece564-8-bit-down-counter
 *
-*M*/
+*/
 
 /*======Declarations===============================*/
 
@@ -37,16 +37,16 @@ reg [7:0] value;       /* current count value */
 wire      zero;
 
 // Count Flip-flops with input multiplexor
-
 /*
-always@(posedge clock)
-  begin  // begin-end not actually need here as there is only one statement
-    if (latch) value <= in;
-    else if (dec && !zero) value <= value - 1'b1;
-    else if (!dec && !zero && divByTwo) value <= value >> 1;
-  end
+always @(posedge clock) begin
+  if (latch) 
+    value <= in;
+  else if (dec && !zero) 
+    value <= value - 1;
+  else if (!dec && !zero && divByTwo) 
+    value <= value >> 1;
+end
 */
-
 always@(posedge clock)
   begin  // begin-end not actually need here as there is only one statement
     casex ({latch, dec, zero, divByTwo}) 
