@@ -42,10 +42,7 @@ typedef enum bit[2:0] {
     IDLE  = 3'd0, 
     S0    = 3'd1,   
     S1    = 3'd2,   
-    S2    = 3'd3,   
-    S3    = 3'd4,   
-    S4    = 3'd5,   
-    S5    = 3'd6,   
+    PARSE_MATRIX_DIMENSIONS = 3'd3,   
   } states;
 
   states currState, nextState;
@@ -61,6 +58,8 @@ reg [15:0] aColumns;
 reg [15:0] aRows;
 reg [15:0] bColumns;
 reg [15:0] aRowCount;
+wire [15:0] accumResult;
+wire [15:0] mac_result_z;
 
 // -------------------- Control path ------------------------
 always @(posedge clk) begin : proc_current_state_fsm
@@ -106,7 +105,7 @@ always @(posedge clk) begin : proc_next_state_fsm
       else begin
         aCount <= aCount + 1;
         bCount <= bCount + 1;
-        cWriteDataR <= cWriteDataR + accum_res;
+        cWriteDataR <= mac_result_z;
         next_state = S0;
       end
     end
@@ -139,13 +138,15 @@ assign dut__tb__sram_input_read_address   <= bCount;
 assign dut__tb__sram_result_write_address <= cCount;
 assign dut__tb__sram_result_write_data    <= cWriteDataR;
 assign dut__tb__sram_result_write_enable  <= cWriteEnableR;
+assign inst_rnd = 3'b000;
+assign accum_result = 3'b000;
 
 
 DW_fp_mac_inst 
   FP_MAC ( 
-  .inst_a(tb__dut__sram_input_read_data),
-  .inst_b(tb__dut__sram_weight_read_data),
-  .inst_c(accum_result),
+  .inst_a(dut__tb__sram_input_read_address),
+  .inst_b(dut__tb__sram_weight_read_address),
+  .inst_c(dut__tb__sram_result_write_data),
   .inst_rnd(inst_rnd),
   .z_inst(mac_result_z),
   .status_inst()
