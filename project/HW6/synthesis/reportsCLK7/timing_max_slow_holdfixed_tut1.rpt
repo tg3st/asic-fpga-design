@@ -1,0 +1,64 @@
+Error: Width mismatch on port 'inst_c' of reference to 'DW_fp_mac_inst' in 'MyDesign'. (LINK-3)
+Warning: Unable to resolve reference 'DW_fp_mac_inst' in 'MyDesign'. (LINK-5)
+Information: Updating design information... (UID-85)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : MyDesign
+Version: T-2022.03-SP4
+Date   : Wed Oct 30 16:51:47 2024
+****************************************
+
+Operating Conditions: slow   Library: NangateOpenCellLibrary_PDKv1_2_v2008_10_slow_nldm
+Wire Load Model Mode: top
+
+  Startpoint: a_row_count_reg[0]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: a_count_reg[14]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock clk (rise edge)                  0.0000     0.0000
+  clock network delay (ideal)            0.0000     0.0000
+  a_row_count_reg[0]/CK (DFFR_X1)        0.0000     0.0000 r
+  a_row_count_reg[0]/QN (DFFR_X1)        0.4195     0.4195 f
+  U873/ZN (INV_X4)                       0.5958     1.0153 r
+  U2154/ZN (XNOR2_X1)                    0.3764     1.3917 r
+  U618/Z (BUF_X4)                        0.3329     1.7246 r
+  U2381/ZN (XNOR2_X1)                    0.3611     2.0857 r
+  U2382/ZN (OAI22_X1)                    0.2339     2.3196 f
+  U2406/S (FA_X1)                        0.8833     3.2029 f
+  U2399/S (FA_X1)                        0.7980     4.0009 r
+  U2420/S (FA_X1)                        0.6446     4.6455 f
+  U739/ZN (AND2_X1)                      0.1936     4.8390 f
+  U2388/ZN (NOR2_X1)                     0.2212     5.0602 r
+  U2396/ZN (OAI21_X1)                    0.1172     5.1774 f
+  U2397/ZN (AOI21_X1)                    0.4184     5.5958 r
+  U2461/ZN (OAI21_X1)                    0.1817     5.7775 f
+  U845/ZN (AOI21_X1)                     0.2523     6.0298 r
+  U844/ZN (XNOR2_X1)                     0.1429     6.1727 f
+  U2529/ZN (AOI22_X1)                    0.2657     6.4384 r
+  U2530/ZN (INV_X1)                      0.0908     6.5292 f
+  a_count_reg[14]/D (DFFR_X2)            0.0000     6.5292 f
+  data arrival time                                 6.5292
+
+  clock clk (rise edge)                  7.0000     7.0000
+  clock network delay (ideal)            0.0000     7.0000
+  clock uncertainty                     -0.0500     6.9500
+  a_count_reg[14]/CK (DFFR_X2)           0.0000     6.9500 r
+  library setup time                    -0.4195     6.5305
+  data required time                                6.5305
+  -----------------------------------------------------------
+  data required time                                6.5305
+  data arrival time                                -6.5292
+  -----------------------------------------------------------
+  slack (MET)                                       0.0013
+
+
+1

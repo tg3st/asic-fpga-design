@@ -1,0 +1,79 @@
+#------------------------------------------------------------
+#
+# Basic Synthesis Script (TCL format)
+#                                  
+# Revision History                
+#   1/15/03  : Author Shane T. Gehring - from class example
+#   2/09/07  : Author Zhengtao Yu      - from class example
+#   12/14/07 : Author Ravi Jenkal      - updated to 180 nm & tcl
+#
+#------------------------------------------------------------
+#---------------------------------------------------------
+# Read in Verilog file and map (synthesize) onto a generic
+# library.
+# MAKE SURE THAT YOU CORRECT ALL WARNINGS THAT APPEAR
+# during the execution of the read command are fixed 
+# or understood to have no impact.
+# ALSO CHECK your latch/flip-flop list for unintended 
+# latches                                            
+#---------------------------------------------------------
+read_verilog -rtl $::env(RTL_FILES)
+Error: Required argument 'file_list' was not found (CMD-007)
+read_sverilog -rtl $::env(RTL_SV_FILES)
+Loading db file '/mnt/coe/workspace/ece/ece720-common/tech/nangate/NangateOpenCellLibrary_PDKv1_2_v2008_10/liberty/520/NangateOpenCellLibrary_PDKv1_2_v2008_10_slow_nldm.db'
+Loading db file '/mnt/apps/public/COE/synopsys_apps/syn/T-2022.03-SP4/libraries/syn/dw_foundation.sldb'
+Loading db file '/mnt/apps/public/COE/synopsys_apps/syn/T-2022.03-SP4/libraries/syn/gtech.db'
+Loading db file '/mnt/apps/public/COE/synopsys_apps/syn/T-2022.03-SP4/libraries/syn/standard.sldb'
+  Loading link library 'NangateOpenCellLibrary_PDKv1_2_v2008_10_slow_nldm'
+  Loading link library 'gtech'
+Loading sverilog file '/mnt/ncsudrive/t/tcgestei/Documents/asic-fpga-design/project/HW6/rtl/dut.sv'
+Running PRESTO HDLC
+Compiling source file /mnt/ncsudrive/t/tcgestei/Documents/asic-fpga-design/project/HW6/rtl/dut.sv
+Opening include file /mnt/ncsudrive/t/tcgestei/Documents/asic-fpga-design/project/HW6/rtl/common.vh
+Warning: Could not open default SVF file /mnt/ncsudrive/t/tcgestei/Documents/asic-fpga-design/project/HW6/synthesis/svf/default.svf for writing.
+
+Statistics for case statements in always block at line 62 in file
+	'/mnt/ncsudrive/t/tcgestei/Documents/asic-fpga-design/project/HW6/rtl/dut.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|            80            |     no/auto      |
+===============================================
+
+Statistics for case statements in always block at line 150 in file
+	'/mnt/ncsudrive/t/tcgestei/Documents/asic-fpga-design/project/HW6/rtl/dut.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           153            |     no/auto      |
+===============================================
+
+Inferred memory devices in process
+	in routine MyDesign line 62 in file
+		'/mnt/ncsudrive/t/tcgestei/Documents/asic-fpga-design/project/HW6/rtl/dut.sv'.
+=================================================================================================
+|             Register Name             |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=================================================================================================
+|               b_end_reg               | Flip-flop |  16   |  Y  | N  | N  | N  | N  | N  | N  |
+|           current_state_reg           | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+|             dut_ready_reg             | Flip-flop |   1   |  N  | N  | N  | Y  | N  | N  | N  |
+|             a_columns_reg             | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+|              a_rows_reg               | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+|             b_columns_reg             | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+|              a_count_reg              | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+|              b_count_reg              | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+|              c_count_reg              | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+|            a_row_count_reg            | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+| dut__tb__sram_result_write_enable_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|           mac_result_z_reg            | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+| dut__tb__sram_input_write_enable_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+| dut__tb__sram_weight_write_enable_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|            cPrime_end_reg             | Flip-flop |  16   |  Y  | N  | N  | N  | N  | N  | N  |
+|               a_end_reg               | Flip-flop |  16   |  Y  | N  | N  | N  | N  | N  | N  |
+|               c_end_reg               | Flip-flop |  16   |  Y  | N  | N  | N  | N  | N  | N  |
+=================================================================================================
+Presto compilation completed successfully.
+Current design is now '/mnt/ncsudrive/t/tcgestei/Documents/asic-fpga-design/project/HW6/rtl/MyDesign.db:MyDesign'
+Loaded 2 designs.
+Current design is 'MyDesign'.
+MyDesign DW_fp_mac_inst

@@ -1,0 +1,72 @@
+Information: Updating design information... (UID-85)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : MyDesign
+Version: T-2022.03-SP4
+Date   : Wed Oct 30 18:05:51 2024
+****************************************
+
+Operating Conditions: slow   Library: NangateOpenCellLibrary_PDKv1_2_v2008_10_slow_nldm
+Wire Load Model Mode: top
+
+  Startpoint: a_columns_reg[0]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: a_end_reg[15]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock clk (rise edge)                  0.0000     0.0000
+  clock network delay (ideal)            0.0000     0.0000
+  a_columns_reg[0]/CK (DFFR_X1)          0.0000     0.0000 r
+  a_columns_reg[0]/QN (DFFR_X1)          0.4061     0.4061 f
+  U2491/ZN (INV_X4)                      0.2852     0.6913 r
+  U551/ZN (INV_X4)                       0.1733     0.8646 f
+  U793/ZN (AND2_X2)                      0.2530     1.1175 f
+  U549/ZN (INV_X4)                       0.2861     1.4036 r
+  U2167/ZN (OAI22_X2)                    0.1844     1.5881 f
+  U1042/ZN (XNOR2_X1)                    0.3115     1.8995 f
+  U1002/ZN (XNOR2_X1)                    0.3171     2.2167 f
+  U3040/ZN (NAND2_X1)                    0.1495     2.3661 r
+  U3041/ZN (INV_X1)                      0.0583     2.4244 f
+  U3042/ZN (AOI21_X1)                    0.4727     2.8972 r
+  U929/ZN (OAI21_X2)                     0.1719     3.0691 f
+  U908/ZN (NAND2_X1)                     0.1618     3.2310 r
+  U2166/ZN (NAND2_X2)                    0.0940     3.3250 f
+  U2163/ZN (NAND3_X2)                    0.1103     3.4353 r
+  U2162/ZN (NAND3_X2)                    0.0856     3.5208 f
+  U861/ZN (NAND2_X1)                     0.1310     3.6518 r
+  U1184/ZN (NAND2_X2)                    0.0917     3.7436 f
+  U1182/ZN (NAND2_X2)                    0.1149     3.8585 r
+  U1181/ZN (NAND2_X2)                    0.0757     3.9342 f
+  U1202/ZN (NAND2_X2)                    0.0845     4.0187 r
+  U836/ZN (NAND3_X2)                     0.0766     4.0953 f
+  U1200/ZN (NAND2_X2)                    0.0917     4.1870 r
+  U1195/ZN (INV_X1)                      0.0589     4.2459 f
+  U712/ZN (OAI21_X2)                     0.1590     4.4049 r
+  U609/ZN (INV_X1)                       0.0744     4.4794 f
+  U1192/ZN (NAND2_X2)                    0.0919     4.5713 r
+  U1191/ZN (NAND3_X2)                    0.0671     4.6384 f
+  a_end_reg[15]/D (DFF_X1)               0.0000     4.6384 f
+  data arrival time                                 4.6384
+
+  clock clk (rise edge)                  5.0000     5.0000
+  clock network delay (ideal)            0.0000     5.0000
+  clock uncertainty                     -0.0500     4.9500
+  a_end_reg[15]/CK (DFF_X1)              0.0000     4.9500 r
+  library setup time                    -0.3105     4.6395
+  data required time                                4.6395
+  -----------------------------------------------------------
+  data required time                                4.6395
+  data arrival time                                -4.6384
+  -----------------------------------------------------------
+  slack (MET)                                       0.0011
+
+
+1

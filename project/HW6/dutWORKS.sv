@@ -1,36 +1,29 @@
-/*
-  *
-    * Made By: Thiago Gesteira
-    * Last Edited: Oct. 30, 2024
-  * 
-*/
-
 `include "common.vh"
 
 module MyDesign(
   input wire reset_n,
   input wire clk,
   input wire dut_valid,
-  output reg dut_ready,  
+  output reg dut_ready,  // Changed from wire to reg since it's assigned in sequential logic
 
   // Input SRAM interface
   output reg dut__tb__sram_input_write_enable,
   output wire [`SRAM_ADDR_RANGE] dut__tb__sram_input_write_address,
   output wire [`SRAM_DATA_RANGE] dut__tb__sram_input_write_data,
-  output reg [`SRAM_ADDR_RANGE] dut__tb__sram_input_read_address,  
+  output reg [`SRAM_ADDR_RANGE] dut__tb__sram_input_read_address,  // Changed from wire to reg
   input wire [`SRAM_DATA_RANGE] tb__dut__sram_input_read_data,
 
   // Weight SRAM interface
   output reg dut__tb__sram_weight_write_enable,
   output wire [`SRAM_ADDR_RANGE] dut__tb__sram_weight_write_address,
   output wire [`SRAM_DATA_RANGE] dut__tb__sram_weight_write_data,
-  output reg [`SRAM_ADDR_RANGE] dut__tb__sram_weight_read_address,  
+  output reg [`SRAM_ADDR_RANGE] dut__tb__sram_weight_read_address,  // Changed from wire to reg
   input wire [`SRAM_DATA_RANGE] tb__dut__sram_weight_read_data,
 
   // Result SRAM interface
-  output reg dut__tb__sram_result_write_enable,  
-  output reg [`SRAM_ADDR_RANGE] dut__tb__sram_result_write_address,
-  output reg [`SRAM_DATA_RANGE] dut__tb__sram_result_write_data,    
+  output reg dut__tb__sram_result_write_enable,  // Changed from wire to reg
+  output reg [`SRAM_ADDR_RANGE] dut__tb__sram_result_write_address,  // Changed from wire to reg
+  output reg [`SRAM_DATA_RANGE] dut__tb__sram_result_write_data,    // Changed from wire to reg
   output wire [`SRAM_ADDR_RANGE] dut__tb__sram_result_read_address,
   input wire [`SRAM_DATA_RANGE] tb__dut__sram_result_read_data
 );
@@ -44,17 +37,17 @@ module MyDesign(
     POST_WRITE = 3'd4
   } state_t;
 
-  state_t current_state, next_state;  
+  state_t current_state, next_state;  // Fixed naming convention
 
   // Registers
-  reg [`SRAM_ADDR_RANGE] a_count;  
+  reg [`SRAM_ADDR_RANGE] a_count;  // Fixed naming convention
   reg [`SRAM_ADDR_RANGE] b_count;
   reg [`SRAM_ADDR_RANGE] c_count;
   reg [15:0] a_columns;
   reg [15:0] a_rows;
   reg [15:0] b_columns;
   reg [15:0] a_row_count;
-  reg [`SRAM_ADDR_RANGE] a_end;  
+  reg [`SRAM_ADDR_RANGE] a_end;  // Fixed naming convention
   reg [`SRAM_ADDR_RANGE] b_end;
   reg [`SRAM_ADDR_RANGE] c_end;
   reg [`SRAM_ADDR_RANGE] cPrime_end;
@@ -62,7 +55,7 @@ module MyDesign(
 
   // MAC interface signals
   wire [2:0] inst_rnd;
-  reg [63:0] accum_c;
+  reg [63:0] mac_result_z;
   reg [63:0] z_out;
 
   // Sequential logic for state transitions
@@ -78,7 +71,7 @@ module MyDesign(
       c_count <= '0;
       a_row_count <= '0;
       dut__tb__sram_result_write_enable <= 1'b0;
-      accum_c <= '0;
+      mac_result_z <= '0;
       dut__tb__sram_input_write_enable <= '0;
       dut__tb__sram_weight_write_enable <= '0;
     end else begin
@@ -90,7 +83,7 @@ module MyDesign(
             dut_ready <= 1'b0;
             a_row_count <= 16'd1;
             dut__tb__sram_result_write_enable <= 1'b0;
-            accum_c <= '0;
+            mac_result_z <= '0;
             dut__tb__sram_input_write_enable <= '0;
             dut__tb__sram_weight_write_enable <= '0;
             a_columns <= tb__dut__sram_input_read_data[15:0];
@@ -123,7 +116,7 @@ module MyDesign(
             a_count <= a_count + 1'b1;
             b_count <= b_count + 1'b1;
           end
-          accum_c <= dut__tb__sram_result_write_data;
+          mac_result_z <= dut__tb__sram_result_write_data;
         end
 
         S1: begin
@@ -133,7 +126,7 @@ module MyDesign(
           else begin
             b_count <= b_count + 1'b1;
           end
-          accum_c <= '0;
+          mac_result_z <= '0;
           dut__tb__sram_result_write_enable <= 1'b0;
           c_count <= c_count + 1'b1;
           if (c_count == cPrime_end) begin
@@ -187,7 +180,7 @@ module MyDesign(
     endcase
   end
 
-// Assign read addresses with appropriate registers (counters)
+// Assign read addresses
   always_comb begin
     dut__tb__sram_input_read_address = a_count;
     dut__tb__sram_weight_read_address = b_count;
@@ -198,9 +191,9 @@ module MyDesign(
 
   // Instantiate MAC module
   DW_fp_mac_inst FP_MAC (
-    .inst_a(tb__dut__sram_input_read_data),    
-    .inst_b(tb__dut__sram_weight_read_data),   
-    .inst_c(accum_c),
+    .inst_a(tb__dut__sram_input_read_data),    // Fixed: Use read data instead of address
+    .inst_b(tb__dut__sram_weight_read_data),   // Fixed: Use read data instead of address
+    .inst_c(mac_result_z),
     .inst_rnd(inst_rnd),
     .z_inst(z_out),
     .status_inst()
@@ -208,6 +201,7 @@ module MyDesign(
 
 endmodule
 
+// MAC module definition remains the same
 module DW_fp_mac_inst #(
   parameter inst_sig_width = 23,
   parameter inst_exp_width = 8,
